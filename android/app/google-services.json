@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1053804283328",
+    "project_id": "projeto04-a8500",
+    "storage_bucket": "projeto04-a8500.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1053804283328:android:5fe109275af4ba32a5f425",
+        "android_client_info": {
+          "package_name": "br.app.projeto04"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDK8oOyG8OAu21gL8PJk5QnvKn2Kc42KgE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

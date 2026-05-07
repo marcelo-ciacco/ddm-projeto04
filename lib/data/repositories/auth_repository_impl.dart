@@ -2,18 +2,20 @@ import 'package:projeto04/data/repositories/auth_repository.dart';
 import 'package:projeto04/data/services/auth_service.dart';
 
 class AuthRepositoryImpl implements AuthRepository {
-  @override
-  AuthService get authService => authService;
+  final AuthService _authService;
+
+  AuthRepositoryImpl({required AuthService authService})
+    : _authService = authService;
 
   @override
-  String? get currentEmailUser => authService.currentUser?.email;
+  String? get currentEmailUser => _authService.currentUser?.email;
 
   @override
-  bool get isLoggedIn => authService.currentUser != null;
+  bool get isLoggedIn => _authService.currentUser != null;
 
   @override
   Future<void> login({required String email, required String password}) async {
-    await authService.login(
+    await _authService.login(
       email: email,
       password: password,
     );
@@ -21,7 +23,7 @@ class AuthRepositoryImpl implements AuthRepository {
 
   @override
   Future<void> logout() async {
-    await authService.logout();
+    await _authService.logout();
   }
 
   @override
@@ -29,7 +31,7 @@ class AuthRepositoryImpl implements AuthRepository {
     required String email,
     required String password,
   }) async {
-    await authService.register(
+    await _authService.register(
       email: email,
       password: password,
     );

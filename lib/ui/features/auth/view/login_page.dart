@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:projeto04/app/app_routes.dart';
+import 'package:projeto04/data/repositories/auth_repository_impl.dart';
+import 'package:projeto04/data/services/auth_service_impl.dart';
 import 'package:projeto04/ui/features/auth/viewmodel/login_viewmodel.dart';
 
 class LoginPage extends StatefulWidget {
@@ -14,7 +17,9 @@ class _LoginPageState extends State<LoginPage> {
   @override
   void initState() {
     super.initState();
-    viewModel = LoginViewmodel();
+    viewModel = LoginViewmodel(
+      authRepository: AuthRepositoryImpl(authService: AuthServiceImpl()),
+    );
   }
 
   @override
@@ -57,9 +62,31 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                 ),
                 SizedBox(height: 16),
-                ElevatedButton(onPressed: () {}, child: Text("Entrar")),
+                ElevatedButton(
+                  onPressed: () async {
+                    final success = await viewModel.login();
+
+                    if (!context.mounted) return;
+
+                    if (success) {
+                      Navigator.pushReplacementNamed(context, AppRoutes.home);
+                    } else {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(
+                          content: Text('Erro ao fazer login'),
+                        ),
+                      );
+                    }
+                  },
+                  child: Text("Entrar"),
+                ),
                 SizedBox(height: 12),
-                TextButton(onPressed: () {}, child: Text("Criar conta")),
+                TextButton(
+                  onPressed: () {
+                    Navigator.of(context).pushNamed(AppRoutes.register);
+                  },
+                  child: Text("Criar conta"),
+                ),
               ],
             ),
           ),

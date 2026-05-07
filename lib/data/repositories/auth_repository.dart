@@ -1,10 +1,4 @@
-import 'package:projeto04/data/services/auth_service.dart';
-
 abstract interface class AuthRepository {
-  final AuthService authService;
-
-  AuthRepository({required this.authService});
-
   bool get isLoggedIn;
 
   String? get currentEmailUser;

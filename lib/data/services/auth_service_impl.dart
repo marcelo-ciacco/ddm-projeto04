@@ -1,8 +1,10 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:projeto04/data/services/auth_service.dart';
 
 class AuthServiceImpl implements AuthService {
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
+  final FirebaseFirestore _firebaseFirestore = FirebaseFirestore.instance;
 
   @override
   User? get currentUser => _firebaseAuth.currentUser;
@@ -27,10 +29,16 @@ class AuthServiceImpl implements AuthService {
   Future<UserCredential> register({
     required String email,
     required String password,
-  }) {
-    return _firebaseAuth.createUserWithEmailAndPassword(
+  }) async {
+    final result = await _firebaseAuth.createUserWithEmailAndPassword(
       email: email,
       password: password,
     );
+
+    _firebaseFirestore.collection('users').doc(result.user!.uid).set({
+      'email': result.user!.email,
+    });
+
+    return result;
   }
 }

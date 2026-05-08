@@ -11,6 +11,9 @@ class AuthRepositoryImpl implements AuthRepository {
   String? get currentEmailUser => _authService.currentUser?.email;
 
   @override
+  String? get currentUserId => _authService.currentUser?.uid;
+
+  @override
   bool get isLoggedIn => _authService.currentUser != null;
 
   @override
